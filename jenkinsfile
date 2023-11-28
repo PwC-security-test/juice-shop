@@ -1,0 +1,28 @@
+pipeline {
+   agent any
+   stages{
+       stage('Checkout') {
+         steps {
+            git branch: 'main', url: 'https://github.com/Security-Test-Account/JenkinsSnyk.git'   
+         }
+      }
+       stage('Print Directory') {
+           steps {
+               // Print current working directory
+               sh 'pwd'
+           }
+       }
+       stage('Snyk Test') {
+           environment {
+               SNYK_TOKEN = credentials('SNYK_TOKEN')
+           }
+           steps {
+               // Change directory to your cloned repo
+               dir('/var/lib/jenkins/workspace/Snyk Integration') {
+                   // Run Snyk tests on your project
+                   sh 'snyk code test --org=4061bd3a-3b71-4154-b76c-38d175334641'
+               }
+           }
+       }
+   }
+}
