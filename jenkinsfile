@@ -20,6 +20,17 @@ pipeline {
                // Change directory to your cloned repo
                dir('/var/lib/jenkins/workspace/Snyk Integration') {
                    // Run Snyk tests on your project
+                   sh 'snyk code test --org=4061bd3a-3b71-4154-b76c-38d175334641'
+               }
+           }
+       stage('Publish SAST Scan on UI') {
+           environment {
+               SNYK_TOKEN = credentials('SNYK_TOKEN')
+           }
+           steps {
+               // Change directory to your cloned repo
+               dir('/var/lib/jenkins/workspace/Snyk Integration') {
+                   // Run Snyk tests on your project
                    sh 'snyk code test --org=4061bd3a-3b71-4154-b76c-38d175334641 --report --project-name="Jenkins_Test"'
                }
            }
