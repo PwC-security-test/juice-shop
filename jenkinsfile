@@ -48,7 +48,7 @@ pipeline {
                }
            }
       }
-       stage('Snyk Test - Only High Vulnerabilities') {
+       stage('Snyk Test - Critical and High Vulnerabilities') {
            environment {
                SNYK_TOKEN = credentials('SNYK_TOKEN')
            }
