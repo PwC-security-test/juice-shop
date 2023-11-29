@@ -17,14 +17,12 @@ pipeline {
                SNYK_TOKEN = credentials('SNYK_TOKEN')
            }
            steps {
-               // Change directory to your cloned repo
-             //  dir('/var/lib/jenkins/workspace/Snyk Integration') {
-                   // Run Snyk tests on your project
+               // Catch Error and Mark Stage as unstable If Scan Fails
                   catchError(stageResult: 'UNSTABLE', buildResult: currentBuild.result) {
+                      // Run Snyk tests on your project
                        sh 'snyk code test --org=4061bd3a-3b71-4154-b76c-38d175334641 --severity-threshold=medium'
                   }
-            // }
-           }
+            }
       }
        stage('Publish SAST Scan on UI') {
            environment {
