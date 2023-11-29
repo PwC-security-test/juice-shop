@@ -23,6 +23,7 @@ pipeline {
                    sh 'snyk code test --org=4061bd3a-3b71-4154-b76c-38d175334641'
                }
            }
+      }
        stage('Publish SAST Scan on UI') {
            environment {
                SNYK_TOKEN = credentials('SNYK_TOKEN')
